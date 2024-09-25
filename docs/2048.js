@@ -1,5 +1,3 @@
-//Rogl, Sperl, Wastlbauer, Schinagl - 2048 ITP
-
 var board;
 var score = 0;
 var rows = 4;
