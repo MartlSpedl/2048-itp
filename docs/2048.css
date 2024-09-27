@@ -1,41 +1,37 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
-    margin: 0;
-    padding: 0;
 }
 
 hr {
-    width: 80%; /* Statt fester Breite eine relative Angabe */
-    max-width: 500px;
+    width: 500px;
 }
 
 #board {
-    width: 90vw; /* Passt die Breite auf 90% der Viewport-Breite an */
-    max-width: 400px; /* Begrenzt die maximale Breite auf 400px */
-    height: 90vw; /* Höhe entspricht der Breite für ein quadratisches Spielfeld */
-    max-height: 400px; /* Begrenzt die maximale Höhe auf 400px */
+    width: 400px;
+    height: 400px;
+
     background-color: #cdc1b5;
     border: 6px solid #bbada0;
+
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Zentriert die Tiles horizontal */
-    align-items: center; /* Zentriert die Tiles vertikal */
 }
 
 .tile {
-    width: 20%; /* Relative Breite für 4 Tiles in einer Zeile */
-    height: 20%; /* Relative Höhe für quadratische Tiles */
+    width: 90px;
+    height: 90px;
     border: 5px solid #bbada0;
-    font-size: 4vw; /* Dynamische Schriftgröße */
+
+    font-size: 40px;
     font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Farbgestaltung der Kacheln wie gehabt */
+
 /* colored tiles */
 
 .x2 {
@@ -104,26 +100,18 @@ hr {
 }
 
 html, body {
+    margin: 0;
+    padding: 0;
     height: 100%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Verhindert das Scrollen */
-}
-
-#header {
-    margin-bottom: 20px;
-}
-
-#score {
-    font-size: 2vw;
-    margin-top: 10px;
+    overflow: hidden; /* Verhindert Scrollen */
 }
 
 * {
     user-select: none; /* Deaktiviert Textauswahl für alle Elemente */
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    -webkit-user-select: none; /* Für WebKit-basierte Browser wie Chrome, Safari */
+    -moz-user-select: none; /* Für Mozilla-basierte Browser wie Firefox */
+    -ms-user-select: none; /* Für ältere Internet Explorer Versionen */
 }
