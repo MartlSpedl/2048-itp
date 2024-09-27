@@ -98,3 +98,10 @@ hr {
     background-color: #ff2020;
     color: white;
 }
+
+* {
+    user-select: none; /* Deaktiviert Textauswahl für alle Elemente */
+    -webkit-user-select: none; /* Für WebKit-basierte Browser wie Chrome, Safari */
+    -moz-user-select: none; /* Für Mozilla-basierte Browser wie Firefox */
+    -ms-user-select: none; /* Für ältere Internet Explorer Versionen */
+}
