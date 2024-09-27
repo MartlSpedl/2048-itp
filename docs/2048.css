@@ -99,6 +99,16 @@ hr {
     color: white;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Verhindert Scrollen */
+}
+
 * {
     user-select: none; /* Deaktiviert Textauswahl für alle Elemente */
     -webkit-user-select: none; /* Für WebKit-basierte Browser wie Chrome, Safari */
