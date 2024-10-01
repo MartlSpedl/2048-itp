@@ -291,4 +291,4 @@ function handleSwipe() {
 function showGameOver() {
     document.getElementById("finalScore").innerText = score;
     document.getElementById("gameOver").style.display = "block";
-} 
+}
