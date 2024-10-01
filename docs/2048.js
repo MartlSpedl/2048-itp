@@ -2,11 +2,15 @@ var board;
 var score = 0;
 var rows = 4;
 var columns = 4;
-
 var startX, startY, endX, endY; // Koordinaten für Touch und Maus
+var timerInterval; // Variable für den Timer
+var timeElapsed = 0; // Zeit in Sekunden
 
 window.onload = function() {
     setGame();
+
+    // Timer starten
+    startTimer();
 
     // Mausbewegung erkennen
     document.addEventListener("mousedown", startSwipe);
@@ -15,6 +19,17 @@ window.onload = function() {
     // Touch für Mobilgeräte
     document.addEventListener("touchstart", startTouch);
     document.addEventListener("touchend", endTouch);
+}
+
+function startTimer() {
+    timerInterval = setInterval(function() {
+        timeElapsed++;
+        document.getElementById("timer").innerText = timeElapsed; // Zeit anzeigen
+    }, 1000); // Jede Sekunde erhöhen
+}
+
+function stopTimer() {
+    clearInterval(timerInterval); // Timer stoppen
 }
 
 function setGame() {
@@ -55,18 +70,21 @@ function updateTile(tile, num) {
 document.addEventListener('keyup', (e) => {
     if (e.code == "ArrowLeft") {
         slideLeft();
-        setTwo();
     } else if (e.code == "ArrowRight") {
         slideRight();
-        setTwo();
     } else if (e.code == "ArrowUp") {
         slideUp();
-        setTwo();
     } else if (e.code == "ArrowDown") {
         slideDown();
-        setTwo();
     }
     document.getElementById("score").innerText = score;
+    
+    // Prüfe, ob das Spiel vorbei ist
+    if (noMovesLeft()) {
+        showGameOver();
+    } else {
+        setTwo();
+    }
 });
 
 function startTouch(e) {
@@ -110,8 +128,14 @@ function handleSwipe() {
             slideUp();
         }
     }
-    setTwo();
     document.getElementById("score").innerText = score;
+
+    // Prüfe, ob das Spiel vorbei ist
+    if (noMovesLeft()) {
+        showGameOver();
+    } else {
+        setTwo();
+    }
 }
 
 function filterZero(row) {
@@ -220,75 +244,25 @@ function hasEmptyTile() {
 
 function noMovesLeft() {
     if (hasEmptyTile()) {
-        return false; // Wenn es noch leere Felder gibt, sind Züge möglich
+        return false; // Wenn es noch leere Felder gibt, ist das Spiel nicht vorbei
     }
-
-    // Überprüfe, ob angrenzende Kacheln kombiniert werden können
+    // Prüfe, ob noch verschiebbare Züge möglich sind
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < columns; c++) {
-            let current = board[r][c];
-            if (r < rows - 1 && current == board[r + 1][c]) {
-                return false; // Überprüfe Kachel darunter
+            if (c < columns - 1 && board[r][c] == board[r][c + 1]) {
+                return false;
             }
-            if (c < columns - 1 && current == board[r][c + 1]) {
-                return false; // Überprüfe Kachel rechts
+            if (r < rows - 1 && board[r][c] == board[r + 1][c]) {
+                return false;
             }
         }
     }
-
-    return true; // Keine Bewegungen mehr möglich
-}
-
-document.addEventListener('keyup', (e) => {
-    if (e.code == "ArrowLeft") {
-        slideLeft();
-    } else if (e.code == "ArrowRight") {
-        slideRight();
-    } else if (e.code == "ArrowUp") {
-        slideUp();
-    } else if (e.code == "ArrowDown") {
-        slideDown();
-    }
-    document.getElementById("score").innerText = score;
-    
-    // Prüfe, ob das Spiel vorbei ist
-    if (noMovesLeft()) {
-        showGameOver();
-    } else {
-        setTwo();
-    }
-});
-
-function handleSwipe() {
-    let deltaX = endX - startX;
-    let deltaY = endY - startY;
-
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // horizontal swipe
-        if (deltaX > 0) {
-            slideRight();
-        } else {
-            slideLeft();
-        }
-    } else {
-        // vertical swipe
-        if (deltaY > 0) {
-            slideDown();
-        } else {
-            slideUp();
-        }
-    }
-    document.getElementById("score").innerText = score;
-
-    // Prüfe, ob das Spiel vorbei ist
-    if (noMovesLeft()) {
-        showGameOver();
-    } else {
-        setTwo();
-    }
+    return true; // Keine leeren Felder und keine verschiebbaren Züge -> Spiel vorbei
 }
 
 function showGameOver() {
+    stopTimer(); // Timer stoppen, wenn das Spiel vorbei ist
     document.getElementById("finalScore").innerText = score;
+    document.getElementById("finalTime").innerText = timeElapsed; // Endzeit anzeigen
     document.getElementById("gameOver").style.display = "block";
 }
