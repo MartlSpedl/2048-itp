@@ -130,3 +130,7 @@ h1, h2 {
     text-align: center;
 }
 
+#time {
+    font-weight: bold;
+    font-size: 18px;
+}
