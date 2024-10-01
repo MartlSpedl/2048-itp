@@ -40,7 +40,7 @@ function setGame() {
 
 function updateTile(tile, num) {
     tile.innerText = "";
-    tile.classList.value = ""; //clear the classList
+    tile.classList.value = ""; // clear the classList
     tile.classList.add("tile");
     if (num > 0) {
         tile.innerText = num.toString();
@@ -50,6 +50,10 @@ function updateTile(tile, num) {
             tile.classList.add("x8192");
         }
     }
+ 
+    // Füge den Übergang hinzu, indem wir die Positionen aktualisieren
+    let [r, c] = tile.id.split("-").map(Number);
+    tile.style.transform = `translate(${c * 110}px, ${r * 110}px)`; // Berechne die Position
 }
 
 document.addEventListener('keyup', (e) => {
@@ -173,7 +177,6 @@ function slideUp() {
         }
     }
 }
-
 function slideDown() {
     for (let c = 0; c < columns; c++) {
         let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
