@@ -217,3 +217,78 @@ function hasEmptyTile() {
     }
     return false;
 }
+
+function noMovesLeft() {
+    if (hasEmptyTile()) {
+        return false; // Wenn es noch leere Felder gibt, sind Züge möglich
+    }
+
+    // Überprüfe, ob angrenzende Kacheln kombiniert werden können
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+            let current = board[r][c];
+            if (r < rows - 1 && current == board[r + 1][c]) {
+                return false; // Überprüfe Kachel darunter
+            }
+            if (c < columns - 1 && current == board[r][c + 1]) {
+                return false; // Überprüfe Kachel rechts
+            }
+        }
+    }
+
+    return true; // Keine Bewegungen mehr möglich
+}
+
+document.addEventListener('keyup', (e) => {
+    if (e.code == "ArrowLeft") {
+        slideLeft();
+    } else if (e.code == "ArrowRight") {
+        slideRight();
+    } else if (e.code == "ArrowUp") {
+        slideUp();
+    } else if (e.code == "ArrowDown") {
+        slideDown();
+    }
+    document.getElementById("score").innerText = score;
+    
+    // Prüfe, ob das Spiel vorbei ist
+    if (noMovesLeft()) {
+        showGameOver();
+    } else {
+        setTwo();
+    }
+});
+
+function handleSwipe() {
+    let deltaX = endX - startX;
+    let deltaY = endY - startY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // horizontal swipe
+        if (deltaX > 0) {
+            slideRight();
+        } else {
+            slideLeft();
+        }
+    } else {
+        // vertical swipe
+        if (deltaY > 0) {
+            slideDown();
+        } else {
+            slideUp();
+        }
+    }
+    document.getElementById("score").innerText = score;
+
+    // Prüfe, ob das Spiel vorbei ist
+    if (noMovesLeft()) {
+        showGameOver();
+    } else {
+        setTwo();
+    }
+}
+
+function showGameOver() {
+    document.getElementById("finalScore").innerText = score;
+    document.getElementById("gameOver").style.display = "block";
+}
