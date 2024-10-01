@@ -40,7 +40,7 @@ function setGame() {
 
 function updateTile(tile, num) {
     tile.innerText = "";
-    tile.classList.value = ""; // clear the classList
+    tile.classList.value = ""; //clear the classList
     tile.classList.add("tile");
     if (num > 0) {
         tile.innerText = num.toString();
@@ -50,10 +50,6 @@ function updateTile(tile, num) {
             tile.classList.add("x8192");
         }
     }
- 
-    // Füge den Übergang hinzu, indem wir die Positionen aktualisieren
-    let [r, c] = tile.id.split("-").map(Number);
-    tile.style.transform = `translate(${c * 110}px, ${r * 110}px)`; // Berechne die Position
 }
 
 document.addEventListener('keyup', (e) => {
@@ -177,6 +173,7 @@ function slideUp() {
         }
     }
 }
+
 function slideDown() {
     for (let c = 0; c < columns; c++) {
         let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
@@ -295,56 +292,3 @@ function showGameOver() {
     document.getElementById("finalScore").innerText = score;
     document.getElementById("gameOver").style.display = "block";
 }
-
-var startTime;
-var timerInterval;
-
-window.onload = function() {
-    setGame();
-
-    // Startet den Timer, sobald das Spiel beginnt
-    startTimer();
-
-    // Mausbewegung erkennen
-    document.addEventListener("mousedown", startSwipe);
-    document.addEventListener("mouseup", endSwipe);
-
-    // Touch für Mobilgeräte
-    document.addEventListener("touchstart", startTouch);
-    document.addEventListener("touchend", endTouch);
-}
-
-function startTimer() {
-    startTime = new Date();
-    timerInterval = setInterval(updateTime, 1000); // Aktualisiert jede Sekunde
-}
-
-function updateTime() {
-    var now = new Date();
-    var elapsed = Math.floor((now - startTime) / 1000); // Zeit in Sekunden
-
-    var minutes = Math.floor(elapsed / 60);
-    var seconds = elapsed % 60;
-
-    // Formatierung der Zeit auf 2 Stellen
-    var formattedTime = 
-        (minutes < 10 ? "0" + minutes : minutes) + ":" + 
-        (seconds < 10 ? "0" + seconds : seconds);
-
-    document.getElementById("time").innerText = formattedTime;
-}
-
-function stopTimer() {
-    clearInterval(timerInterval);
-}
-
-function showGameOver() {
-    document.getElementById("finalScore").innerText = score;
-    
-    // Stoppt den Timer und zeigt die finale Zeit an
-    stopTimer();
-    document.getElementById("finalTime").innerText = document.getElementById("time").innerText;
-
-    document.getElementById("gameOver").style.display = "block";
-}
-
