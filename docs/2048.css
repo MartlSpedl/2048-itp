@@ -24,20 +24,24 @@ hr {
     width: 400px;
     height: 400px;
     background-color: rgba(205, 193, 181, 0.8); /* Leicht transparente Kacheln */
-    border: 6px solid #bbada0;
+    border: 5px solid #bbada0;
     display: flex;
     flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
 }
 
 .tile {
      width: 90px; /* Größe der Kacheln minus Rand */
     height: 90px; /* Größe der Kacheln minus Rand */
-    border: 9px solid #bbada0;
+    border: 5px solid #bbada0;
     font-size: 40px;
     font-weight: bold;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 /* centered text for title and score */
