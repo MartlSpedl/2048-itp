@@ -53,62 +53,62 @@ h1, h2 {
 }
 
 .x4 {
-    background-color: rgba(236, 224, 202, 0.8);
+    background-color: rgba(236, 224, 202, 0.6);
     color: white;
 }
 
 .x8 {
-    background-color: rgba(244, 177, 122, 0.8);
+    background-color: rgba(244, 177, 122, 0.6);
     color: white;
 }
 
 .x16 {
-    background-color: rgba(245, 149, 117, 0.8);
+    background-color: rgba(245, 149, 117, 0.6);
     color: white;
 }
 
 .x32 {
-    background-color: rgba(245, 124, 95, 0.8);
+    background-color: rgba(245, 124, 95, 0.6);
     color: white;
 }
 
 .x64 {
-    background-color: rgba(246, 93, 59, 0.8);
+    background-color: rgba(246, 93, 59, 0.6);
     color: white;
 }
 
 .x128 {
-    background-color: rgba(237, 206, 113, 0.8);
+    background-color: rgba(237, 206, 113, 0.6);
     color: white;
 }
 
 .x256 {
-    background-color: rgba(237, 204, 99, 0.8);
+    background-color: rgba(237, 204, 99, 0.6);
     color: white;
 }
 
 .x512 {
-    background-color: rgba(237, 198, 81, 0.8);
+    background-color: rgba(237, 198, 81, 0.6);
     color: white;
 }
 
 .x1024 {
-    background-color: rgba(238, 199, 68, 0.8);
+    background-color: rgba(238, 199, 68, 0.6);
     color: white;
 }
 
 .x2048 {
-    background-color: rgba(236, 194, 48, 0.8);
+    background-color: rgba(236, 194, 48, 0.6);
     color: white;
 }
 
 .x4096 {
-    background-color: rgba(254, 61, 61, 0.8);
+    background-color: rgba(254, 61, 61, 0.6);
     color: white;
 }
 
 .x8192 {
-    background-color: rgba(255, 32, 32, 0.8);
+    background-color: rgba(255, 32, 32, 0.6);
     color: white;
 }
 
