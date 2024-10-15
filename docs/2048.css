@@ -23,7 +23,7 @@ hr {
 #board {
     width: 400px;
     height: 400px;
-    background-color: #cdc1b5;
+    background-color: rgba(205, 193, 181, 0.8); /* Leicht transparente Kacheln */
     border: 6px solid #bbada0;
     display: flex;
     flex-wrap: wrap;
@@ -38,7 +38,6 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(205, 193, 181, 0.8); /* Leicht transparente Kacheln */
 }
 
 /* centered text for title and score */
