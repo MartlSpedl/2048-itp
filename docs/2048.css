@@ -30,8 +30,8 @@ hr {
 }
 
 .tile {
-    width: 90px;
-    height: 90px;
+     width: calc(100% / 4 - 5px); /* Größe der Kacheln minus Rand */
+    height: calc(100% / 4 - 5px); /* Größe der Kacheln minus Rand */
     border: 5px solid #bbada0;
     font-size: 40px;
     font-weight: bold;
