@@ -48,67 +48,67 @@ h1, h2 {
 
 /* colored tiles */
 .x2 {
-    background-color: #eee4da;
-    color: #727371;
+    background-color: rgba(238, 228, 218, 0.8);
+    color: white;
 }
 
 .x4 {
-    background-color: #ece0ca;
-    color: #727371;
+    background-color: rgba(236, 224, 202, 0.8);
+    color: white;
 }
 
 .x8 {
-    background-color: #f4b17a;
+    background-color: rgba(244, 177, 122, 0.8);
     color: white;
 }
 
 .x16 {
-    background-color: #f59575;
+    background-color: rgba(245, 149, 117, 0.8);
     color: white;
 }
 
 .x32 {
-    background-color: #f57c5f;
+    background-color: rgba(245, 124, 95, 0.8);
     color: white;
 }
 
 .x64 {
-    background-color: #f65d3b;
+    background-color: rgba(246, 93, 59, 0.8);
     color: white;
 }
 
 .x128 {
-    background-color: #edce71;
+    background-color: rgba(237, 206, 113, 0.8);
     color: white;
 }
 
 .x256 {
-    background-color: #edcc63;
+    background-color: rgba(237, 204, 99, 0.8);
     color: white;
 }
 
 .x512 {
-    background-color: #edc651;
+    background-color: rgba(237, 198, 81, 0.8);
     color: white;
 }
 
 .x1024 {
-    background-color: #eec744;
+    background-color: rgba(238, 199, 68, 0.8);
     color: white;
 }
 
 .x2048 {
-    background-color: #ecc230;
+    background-color: rgba(236, 194, 48, 0.8);
     color: white;
 }
 
 .x4096 {
-    background-color: #fe3d3d;
+    background-color: rgba(254, 61, 61, 0.8);
     color: white;
 }
 
 .x8192 {
-    background-color: #ff2020;
+    background-color: rgba(255, 32, 32, 0.8);
     color: white;
 }
 
