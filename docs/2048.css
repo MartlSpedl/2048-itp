@@ -38,7 +38,7 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(238, 228, 218, 0.8); /* Leicht transparente Kacheln */
+    background-color: rgba(205, 193, 181, 0.8); /* Leicht transparente Kacheln */
 }
 
 /* centered text for title and score */
