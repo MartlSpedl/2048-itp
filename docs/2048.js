@@ -34,8 +34,7 @@ function setGame() {
             document.getElementById("board").append(tile);
         }
     }
-    setTwo();
-    setTwo();
+    setTwo();  // Nur einmal initial eine Kachel hinzufügen
 }
 
 function updateTile(tile, num) {
@@ -53,21 +52,57 @@ function updateTile(tile, num) {
 }
 
 document.addEventListener('keyup', (e) => {
+    let moved = false;  // Variable, um festzustellen, ob ein Zug gemacht wurde
     if (e.code == "ArrowLeft") {
-        slideLeft();
-        setTwo();
+        moved = slideLeft();
     } else if (e.code == "ArrowRight") {
-        slideRight();
-        setTwo();
+        moved = slideRight();
     } else if (e.code == "ArrowUp") {
-        slideUp();
-        setTwo();
+        moved = slideUp();
     } else if (e.code == "ArrowDown") {
-        slideDown();
-        setTwo();
+        moved = slideDown();
     }
-    document.getElementById("score").innerText = score;
+    
+    if (moved) {  // Nur eine Kachel hinzufügen, wenn sich das Board bewegt hat
+        document.getElementById("score").innerText = score;
+        if (noMovesLeft()) {
+            showGameOver();
+        } else {
+            setTwo();  // Nur eine Kachel wird hinzugefügt
+        }
+    }
 });
+
+function handleSwipe() {
+    let deltaX = endX - startX;
+    let deltaY = endY - startY;
+    let moved = false;  // Variable, um festzustellen, ob ein Zug gemacht wurde
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // horizontal swipe
+        if (deltaX > 0) {
+            moved = slideRight();
+        } else {
+            moved = slideLeft();
+        }
+    } else {
+        // vertical swipe
+        if (deltaY > 0) {
+            moved = slideDown();
+        } else {
+            moved = slideUp();
+        }
+    }
+
+    if (moved) {  // Nur eine Kachel hinzufügen, wenn sich das Board bewegt hat
+        document.getElementById("score").innerText = score;
+        if (noMovesLeft()) {
+            showGameOver();
+        } else {
+            setTwo();  // Nur eine Kachel wird hinzugefügt
+        }
+    }
+}
 
 function startTouch(e) {
     startX = e.touches[0].clientX;
@@ -91,34 +126,12 @@ function endSwipe(e) {
     handleSwipe();
 }
 
-function handleSwipe() {
-    let deltaX = endX - startX;
-    let deltaY = endY - startY;
-
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // horizontal swipe
-        if (deltaX > 0) {
-            slideRight();
-        } else {
-            slideLeft();
-        }
-    } else {
-        // vertical swipe
-        if (deltaY > 0) {
-            slideDown();
-        } else {
-            slideUp();
-        }
-    }
-    setTwo();
-    document.getElementById("score").innerText = score;
-}
-
 function filterZero(row) {
     return row.filter(num => num != 0); //create new array of all nums != 0
 }
 
 function slide(row) {
+    let originalRow = [...row];  // Kopiere das ursprüngliche Array, um Veränderungen zu erkennen
     row = filterZero(row); //[2, 2, 2]
     for (let i = 0; i < row.length - 1; i++) {
         if (row[i] == row[i + 1]) {
@@ -131,55 +144,66 @@ function slide(row) {
     while (row.length < columns) {
         row.push(0);
     }
-    return row;
+    return [row, JSON.stringify(row) !== JSON.stringify(originalRow)];  // Rückgabe des Arrays und ob es sich verändert hat
 }
 
 function slideLeft() {
+    let moved = false;
     for (let r = 0; r < rows; r++) {
         let row = board[r];
-        row = slide(row);
-        board[r] = row;
+        let result = slide(row);
+        board[r] = result[0];
+        moved = moved || result[1];
         for (let c = 0; c < columns; c++) {
             let tile = document.getElementById(r.toString() + "-" + c.toString());
             let num = board[r][c];
             updateTile(tile, num);
         }
     }
+    return moved;
 }
 
 function slideRight() {
+    let moved = false;
     for (let r = 0; r < rows; r++) {
         let row = board[r];
         row.reverse();
-        row = slide(row);
-        board[r] = row.reverse();
+        let result = slide(row);
+        board[r] = result[0].reverse();
+        moved = moved || result[1];
         for (let c = 0; c < columns; c++) {
             let tile = document.getElementById(r.toString() + "-" + c.toString());
             let num = board[r][c];
             updateTile(tile, num);
         }
     }
+    return moved;
 }
 
 function slideUp() {
+    let moved = false;
     for (let c = 0; c < columns; c++) {
         let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
-        row = slide(row);
+        let result = slide(row);
+        moved = moved || result[1];
         for (let r = 0; r < rows; r++) {
-            board[r][c] = row[r];
+            board[r][c] = result[0][r];
             let tile = document.getElementById(r.toString() + "-" + c.toString());
             let num = board[r][c];
             updateTile(tile, num);
         }
     }
+    return moved;
 }
 
 function slideDown() {
+    let moved = false;
     for (let c = 0; c < columns; c++) {
         let row = [board[0][c], board[1][c], board[2][c], board[3][c]];
         row.reverse();
-        row = slide(row);
-        row.reverse();
+        let result = slide(row);
+        row = result[0].reverse();
+        moved = moved || result[1];
         for (let r = 0; r < rows; r++) {
             board[r][c] = row[r];
             let tile = document.getElementById(r.toString() + "-" + c.toString());
@@ -187,6 +211,7 @@ function slideDown() {
             updateTile(tile, num);
         }
     }
+    return moved;
 }
 
 function setTwo() {
@@ -237,55 +262,6 @@ function noMovesLeft() {
     }
 
     return true; // Keine Bewegungen mehr möglich
-}
-
-document.addEventListener('keyup', (e) => {
-    if (e.code == "ArrowLeft") {
-        slideLeft();
-    } else if (e.code == "ArrowRight") {
-        slideRight();
-    } else if (e.code == "ArrowUp") {
-        slideUp();
-    } else if (e.code == "ArrowDown") {
-        slideDown();
-    }
-    document.getElementById("score").innerText = score;
-    
-    // Prüfe, ob das Spiel vorbei ist
-    if (noMovesLeft()) {
-        showGameOver();
-    } else {
-        setTwo();
-    }
-});
-
-function handleSwipe() {
-    let deltaX = endX - startX;
-    let deltaY = endY - startY;
-
-    if (Math.abs(deltaX) > Math.abs(deltaY)) {
-        // horizontal swipe
-        if (deltaX > 0) {
-            slideRight();
-        } else {
-            slideLeft();
-        }
-    } else {
-        // vertical swipe
-        if (deltaY > 0) {
-            slideDown();
-        } else {
-            slideUp();
-        }
-    }
-    document.getElementById("score").innerText = score;
-
-    // Prüfe, ob das Spiel vorbei ist
-    if (noMovesLeft()) {
-        showGameOver();
-    } else {
-        setTwo();
-    }
 }
 
 function showGameOver() {
