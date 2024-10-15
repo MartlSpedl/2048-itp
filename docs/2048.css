@@ -10,7 +10,7 @@ body {
     flex-direction: column;
     overflow: hidden; /* Verhindert Scrollen */
     background-image: url("htl_logo.png"); /* Verwende den Pfad zu deinem Logo */
-    background-size: 30%; /* Bild an Bildschirmgröße anpassen */
+    background-size: 20%; /* Bild an Bildschirmgröße anpassen */
     background-position: center; /* Bild in der Mitte zentrieren */
     background-repeat: no-repeat; 
 }
